@@ -17,8 +17,9 @@
 # limitations under the License.
 #
 
-include_recipe 'stunnel::server'
 include_recipe 'chef_nginx'
+
+stunnel_install 'default'
 
 stunnel_connection 'server' do
   accept 8080
