@@ -2,7 +2,7 @@
 driver:
   name: dokken
   privileged: true # because Docker and SystemD/Upstart
-  chef_version: 12
+  chef_version: 13
 
 transport:
   name: dokken
@@ -15,19 +15,25 @@ platforms:
 - name: centos-6
   driver:
     image: dokken/centos-6
-    platform: rhel
     pid_one_command: /sbin/init
 
-- name: ubuntu-14.04
+- name: centos-7
   driver:
-    image: dokken/ubuntu-14.04
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
+    image: dokken/centos-7
+    pid_one_command: /usr/lib/systemd/systemd
 
 - name: ubuntu-16.04
-  driver:
-    image: dokken/ubuntu-16.04
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
+	driver:
+		image: dokken/ubuntu-16.04
+		pid_one_command: /bin/systemd
+		intermediate_instructions:
+			- RUN /usr/bin/apt-get update
+			- RUN /usr/bin/apt-get -y install sudo
+
+- name: ubuntu-18.04
+	driver:
+		image: dokken/ubuntu-18.04
+		pid_one_command: /bin/systemd
+		intermediate_instructions:
+			- RUN /usr/bin/apt-get update
+			- RUN /usr/bin/apt-get -y install sudo
