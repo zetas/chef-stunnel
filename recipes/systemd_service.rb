@@ -3,7 +3,7 @@
 node.override['stunnel']['foreground'] = true
 node.override['stunnel']['pid'] = ''
 
-systemd_unit 'nodebb.service' do
+systemd_unit "#{node['stunnel']['service_name']}.service" do
   content <<-EOU.gsub(/^\s+/, '')
   [Unit]
   Description=stunnel TLS proxy
