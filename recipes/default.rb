@@ -42,18 +42,8 @@ user 'stunnel4' do
   shell '/bin/false'
   manage_home true
 end
-if node['stunnel']['foreground'] == 'true'
-  include_recipe 'stunnel::systemd_service'
-else
-  template '/etc/init.d/stunnel4' do
-    source 'init-stunnel4.erb'
-    mode '0755'
-    variables(
-        ulimit: node['stunnel']['ulimit'],
-        daemon: node['stunnel']['daemon']
-      )
-  end
-end
+
+include_recipe 'stunnel::systemd_service'
 
 ruby_block 'stunnel.conf notifier' do
   block do
