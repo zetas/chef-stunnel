@@ -16,4 +16,6 @@ systemd_unit "#{node['stunnel']['service_name']}.service" do
   [Install]
   WantedBy=multi-user.target
   EOU
+
+  action :create
 end
